@@ -1,0 +1,175 @@
+var _elm_lang$elm_architecture_tutorial$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Increment':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{counter: model.counter + 1});
+			case 'Decrement':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{counter: model.counter - 1});
+			case 'Reset':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{counter: 0});
+			case 'ListenChange':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{currentMessage: _p0._0});
+			default:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						messages: A2(
+							_elm_lang$core$List$append,
+							model.messages,
+							{
+								ctor: '::',
+								_0: model.currentMessage,
+								_1: {ctor: '[]'}
+							})
+					});
+		}
+	});
+var _elm_lang$elm_architecture_tutorial$Main$renderLi = function (lst) {
+	return A2(
+		_elm_lang$html$Html$ul,
+		{ctor: '[]'},
+		A2(
+			_elm_lang$core$List$map,
+			function (l) {
+				return A2(
+					_elm_lang$html$Html$li,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(l),
+						_1: {ctor: '[]'}
+					});
+			},
+			lst));
+};
+var _elm_lang$elm_architecture_tutorial$Main$Model = F3(
+	function (a, b, c) {
+		return {counter: a, messages: b, currentMessage: c};
+	});
+var _elm_lang$elm_architecture_tutorial$Main$model = A3(
+	_elm_lang$elm_architecture_tutorial$Main$Model,
+	0,
+	{ctor: '[]'},
+	'');
+var _elm_lang$elm_architecture_tutorial$Main$AddMessage = {ctor: 'AddMessage'};
+var _elm_lang$elm_architecture_tutorial$Main$ListenChange = function (a) {
+	return {ctor: 'ListenChange', _0: a};
+};
+var _elm_lang$elm_architecture_tutorial$Main$Reset = {ctor: 'Reset'};
+var _elm_lang$elm_architecture_tutorial$Main$Decrement = {ctor: 'Decrement'};
+var _elm_lang$elm_architecture_tutorial$Main$Increment = {ctor: 'Increment'};
+var _elm_lang$elm_architecture_tutorial$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$button,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(_elm_lang$elm_architecture_tutorial$Main$Decrement),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('-'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(
+							_elm_lang$core$Basics$toString(model.counter)),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$button,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(_elm_lang$elm_architecture_tutorial$Main$Increment),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('+'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$br,
+							{ctor: '[]'},
+							{ctor: '[]'}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$button,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(_elm_lang$elm_architecture_tutorial$Main$Reset),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('0'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$input,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$placeholder('Put your question'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onInput(_elm_lang$elm_architecture_tutorial$Main$ListenChange),
+											_1: {ctor: '[]'}
+										}
+									},
+									{ctor: '[]'}),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$elm_architecture_tutorial$Main$renderLi(model.messages),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$button,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Events$onClick(_elm_lang$elm_architecture_tutorial$Main$AddMessage),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('Add Message'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+};
+var _elm_lang$elm_architecture_tutorial$Main$main = _elm_lang$html$Html$beginnerProgram(
+	{model: _elm_lang$elm_architecture_tutorial$Main$model, view: _elm_lang$elm_architecture_tutorial$Main$view, update: _elm_lang$elm_architecture_tutorial$Main$update})();
