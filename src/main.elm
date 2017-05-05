@@ -1,12 +1,7 @@
-import Html exposing (Html, button, div, text, br, input, ul, li)
+import Html exposing (Html, button, div, text, br, input, ul, li, h1, h3)
 import Html.Events exposing (onClick, onInput)
 import Html.Attributes exposing (..)
 import String
-
-
-renderLi lst = 
-  ul [] 
-    (List.map (\l -> li [] [text l]) lst)
 
 
 main =
@@ -16,41 +11,36 @@ main =
 -- MODEL
 
 type alias Model = {
-  counter: Int,
-  messages: List String,
-  currentMessage: String
-
+  to_dos: List String,
+  task: String
 }
 
 model : Model
 model =
-  Model 0 [] ""
+  Model [] ""
 
 
 -- UPDATE
 
-type Msg = Increment | Decrement | Reset | ListenChange String | AddMessage
+type Msg = ListenChange String | AddTask
 
 
 update : Msg -> Model -> Model
 update msg model =
   case msg of
-    Increment ->
-      {model| counter =  model.counter + 1}
-
-    Decrement ->
-      {model| counter = model.counter - 1}
-
-    Reset ->
-      {model| counter = 0}
-    
     ListenChange message -> 
-      {model| currentMessage = message }
+      {model| task = message }
 
-    AddMessage ->
-      {model| messages = List.append model.messages [model.currentMessage] }
+    AddTask ->
+      {model| to_dos = List.append model.to_dos [model.task] }
+
+
 
 -- VIEW
+
+render_to_do lst= 
+  ul [] 
+    (List.map (\msg -> li [] [text msg]) lst)
 
 view : Model -> Html Msg
 
@@ -58,12 +48,10 @@ view : Model -> Html Msg
 
 view model =
   div []
-    [ button [ onClick Decrement ] [ text "-" ]
-    , div [] [ text (toString model.counter) ]
-    , button [ onClick Increment ] [ text "+" ]
-    , br [] []
-    , button [ onClick Reset ] [ text "0" ]
-    , input [ placeholder "Put your question", onInput ListenChange] []
-    , renderLi model.messages
-    , button [ onClick AddMessage] [text "Add Message"] 
+    [ 
+      h3 [] [ text "A fazer"]
+    , input [ placeholder "Todo", onInput ListenChange] []
+    , h3 [] [ text "Feito"]
+    , render_to_do model.to_dos
+    , button [ onClick AddTask] [text "Add Message"] 
     ]
