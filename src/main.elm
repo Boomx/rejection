@@ -29,11 +29,10 @@ update : Msg -> Model -> Model
 update msg model =
   case msg of
     ListenChange message -> 
-      {model| task = message }
+      {model| task = message}
 
     AddTask ->
-      {model| to_dos = List.append model.to_dos [model.task] }
-
+      {model| to_dos = List.append model.to_dos [model.task]}
 
 
 -- VIEW
